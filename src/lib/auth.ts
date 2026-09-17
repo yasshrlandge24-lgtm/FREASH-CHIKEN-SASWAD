@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+﻿import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -7,11 +7,13 @@ import { db } from './db';
 import type { Role } from '@prisma/client';
 
 const SESSION_COOKIE = 'cc_session';
-const JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV === 'production' ? '' : 'freash-chiken-local-dev-secret-change-before-production');
 
-if (!JWT_SECRET && process.env.NODE_ENV === 'production') {
-  // Fail loudly in production rather than silently signing tokens with `undefined`.
-  throw new Error('JWT_SECRET is not set');
+function getJwtSecret() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret && process.env.NODE_ENV === 'production') {
+    throw new Error('JWT_SECRET is not set');
+  }
+  return secret || 'freash-chiken-local-dev-secret-change-before-production';
 }
 
 export type SessionPayload = { userId: string; role: Role };
@@ -25,7 +27,7 @@ export async function verifyPassword(password: string, hash: string) {
 }
 
 export function signSession(payload: SessionPayload) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '30d' });
+  return jwt.sign(payload, getJwtSecret(), { expiresIn: '30d' });
 }
 
 export function setSessionCookie(token: string) {
@@ -47,7 +49,7 @@ export function getSession(): SessionPayload | null {
   const token = cookies().get(SESSION_COOKIE)?.value;
   if (!token) return null;
   try {
-    return jwt.verify(token, JWT_SECRET) as SessionPayload;
+    return jwt.verify(token, getJwtSecret()) as SessionPayload;
   } catch {
     return null;
   }
