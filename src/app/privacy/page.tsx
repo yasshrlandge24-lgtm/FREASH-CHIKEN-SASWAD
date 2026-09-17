@@ -1,0 +1,2 @@
+export const metadata={title:'Privacy Policy — Freash Chiken'};
+export default function Privacy(){return <main className="page-shell legal-page"><span className="eyebrow">Privacy</span><h1>Privacy Policy</h1><p>We use account, address, order and payment information to provide the services requested through this store. Configure your final business privacy policy, retention periods and contact details before production launch.</p></main>}

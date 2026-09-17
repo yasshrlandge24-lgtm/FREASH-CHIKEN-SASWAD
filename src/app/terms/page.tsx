@@ -1,0 +1,2 @@
+export const metadata={title:'Terms — Freash Chiken'};
+export default function Terms(){return <main className="page-shell legal-page"><span className="eyebrow">Terms</span><h1>Terms & Conditions</h1><p>Orders, delivery windows, cancellations, refunds and product handling are governed by the final terms published by the business. Replace this development copy with your legally reviewed terms before launch.</p></main>}
