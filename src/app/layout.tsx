@@ -39,6 +39,32 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      '@id': 'https://freash-chiken-saswad.vercel.app/#business',
+      name: 'FREASH CHIKEN CENTRE',
+      url: 'https://freash-chiken-saswad.vercel.app/',
+      telephone: '+918766652688',
+      description:
+        'FREASH CHIKEN CENTRE in Saswad, Pune, serving fresh chicken with clean cuts and hygienic packing since 1997.',
+      foundingDate: '1997',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Saswad',
+        addressRegion: 'Maharashtra',
+        addressCountry: 'IN',
+      },
+      areaServed: {
+        '@type': 'City',
+        name: 'Saswad',
+      },
+    }),
+  }}
+/>
         <StoreHeader />
         {children}
         <Footer />
